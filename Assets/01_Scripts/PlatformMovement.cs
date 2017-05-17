@@ -9,9 +9,14 @@ public class PlatformMovement : MonoBehaviour {
 	[SerializeField] private float RestartPos = -64f;
 	[SerializeField] private float ResetPos = 24.2f;
 
+	private float xPos, yPos, zPos;
+
 	// Use this for initialization
 	void Start () {
 		//platforms = FindObjectsOfType<Platform>();
+		xPos = GetComponent<Transform>().localPosition.x;
+		yPos = GetComponent<Transform>().localPosition.y;
+		zPos = GetComponent<Transform>().localPosition.z;
 
 	}
 
@@ -26,4 +31,10 @@ public class PlatformMovement : MonoBehaviour {
 			}
 		}
 	}
+
+	public void OnReset ()
+	{
+		transform.position = new Vector3(xPos,yPos,zPos);	
+	}	
+
 }

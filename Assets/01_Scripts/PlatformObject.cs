@@ -15,9 +15,9 @@ public class PlatformObject : PlatformMovement {
 
 	void Start ()
 	{
-				//if (moveableObject) {
 			StartCoroutine (AutonomousMovement (bottomPosition));
-		//}
+
+		
 	}
 
 	public override void Update ()
@@ -37,5 +37,6 @@ public class PlatformObject : PlatformMovement {
 		Vector3 newTarget = target.y == topPosition.y ? bottomPosition : topPosition;
 		StartCoroutine(AutonomousMovement(newTarget));
 	}
+
 
 }

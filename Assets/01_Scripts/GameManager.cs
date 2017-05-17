@@ -7,10 +7,13 @@ public class GameManager : MonoBehaviour {
 
 
 	[SerializeField] private GameObject Mainmenu;
+	[SerializeField] private GameObject GameOvermenu;
 
 	private bool playerActive = false;
 	private bool gameOver = false;
 	private bool gameStarted = false;
+	private Player player;
+	private PlatformMovement[] platforms;
 
 	//Accessors
 	public bool PlayerActive{
@@ -37,7 +40,8 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		player = GetComponent<Player>();
+		platforms = GameObject.FindObjectsOfType<PlatformMovement>();
 	}
 	
 	// Update is called once per frame
@@ -45,8 +49,22 @@ public class GameManager : MonoBehaviour {
 	
 	}
 
+	public void Reset(){
+		gameOver = false;
+		GameOvermenu.SetActive(false);
+		StopCoroutine(EndScreen());
+		Mainmenu.SetActive(true);
+		player.Reset();
+		/*foreach(PlatformMovement plat in platforms){
+			plat.OnReset();
+		}*/
+	}
+
 	public void playerCollided(){
-		gameOver =true;
+		gameStarted = false;
+		playerActive = false;
+		gameOver = true;
+		StartCoroutine(EndScreen());
 	}
 
 	public void playerStartedGame(){
@@ -57,4 +75,15 @@ public class GameManager : MonoBehaviour {
 		Mainmenu.SetActive(false);
 		gameStarted = true;
 	}
+
+	//Need to create reset state for replay button
+
+	//Need to send back to main menu
+
+
+	IEnumerator EndScreen(){
+		yield return new WaitForSeconds(2f);
+		GameOvermenu.SetActive(true);
+	}
+
 }

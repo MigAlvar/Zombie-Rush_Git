@@ -9,7 +9,7 @@ public class Player : MonoBehaviour {
 	private Animator anim;
 	private Rigidbody body;
 	private bool jump = false;
-
+	private float xPos, yPos, zPos;
 	private AudioSource playerSnd;
 	
 	// Use this for initialization
@@ -17,6 +17,10 @@ public class Player : MonoBehaviour {
 		anim = GetComponent<Animator>();
 		body = GetComponent<Rigidbody>();
 		playerSnd = GetComponent<AudioSource>();
+		xPos = GetComponent<Transform>().localPosition.x;
+		yPos = GetComponent<Transform>().localPosition.y;
+		zPos = GetComponent<Transform>().localPosition.z;
+
 	}
 	
 	// Update is called once per frame
@@ -50,5 +54,11 @@ void OnCollisionEnter (Collision other)
 			playerSnd.PlayOneShot(sfxDeath);
 			GameManager.instance.playerCollided();
 		}
+	}
+
+	public void Reset(){
+		body.useGravity = false;
+		transform.localPosition = new Vector3(xPos,yPos,zPos);
+		body.detectCollisions = true;
 	}
 }
