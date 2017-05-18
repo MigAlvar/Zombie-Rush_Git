@@ -13,10 +13,10 @@ public class PlatformObject : PlatformMovement {
 
 	// Use this for initialization
 
-	void Start ()
+	protected override void Start ()
 	{
 			StartCoroutine (AutonomousMovement (bottomPosition));
-
+			base.Start();	
 		
 	}
 

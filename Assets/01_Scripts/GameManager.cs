@@ -6,8 +6,8 @@ public class GameManager : MonoBehaviour {
 	public static GameManager instance = null;
 
 
-	[SerializeField] private GameObject Mainmenu;
-	[SerializeField] private GameObject GameOvermenu;
+	public GameObject Mainmenu;
+	public GameObject GameOvermenu;
 
 	private bool playerActive = false;
 	private bool gameOver = false;
@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
 	private Player player;
 	private PlatformMovement[] platforms;
 	private PlatformObject[] objs;
+	private AudioSource music;
 
 	//Accessors
 	public bool PlayerActive{
@@ -41,6 +42,8 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		music = GetComponent<AudioSource>();
+
 		player = GameObject.FindObjectOfType<Player>();
 		platforms = GameObject.FindObjectsOfType<PlatformMovement>();
 		objs = GameObject.FindObjectsOfType<PlatformObject>();
@@ -51,21 +54,29 @@ public class GameManager : MonoBehaviour {
 	
 	}
 
-	public void Reset(){
+	//Resetting
+	public void Reset (bool main)
+	{
 		gameOver = false;
-		GameOvermenu.SetActive(false);
-		StopCoroutine(EndScreen());
-		Mainmenu.SetActive(true);
-		player.Reset();
+		GameOvermenu.SetActive (false);
+		StopCoroutine (EndScreen ());
+
+		player.Reset ();
 		
-		foreach(PlatformMovement plat in platforms){
-			plat.OnReset();
+		foreach (PlatformMovement plat in platforms) {
+			plat.OnReset ();
 		}
 		
-		foreach(PlatformObject obj in objs){
-			obj.OnReset();
+		foreach (PlatformObject obj in objs) {
+			obj.OnReset ();
 		}
-		}
+		if (main) {
+			Mainmenu.SetActive (true);
+		} else {
+			playerStartedGame();
+			GameOn();
+		} 
+	}
 	
 
 	public void playerCollided(){
@@ -78,9 +89,11 @@ public class GameManager : MonoBehaviour {
 	public void playerStartedGame(){
 		playerActive = true;
 	}
+
 	public void GameOn ()
 	{	
 		Mainmenu.SetActive(false);
+		music.Play();
 		gameStarted = true;
 	}
 
@@ -91,6 +104,7 @@ public class GameManager : MonoBehaviour {
 
 	IEnumerator EndScreen(){
 		yield return new WaitForSeconds(2f);
+		music.Stop();
 		GameOvermenu.SetActive(true);
 	}
 

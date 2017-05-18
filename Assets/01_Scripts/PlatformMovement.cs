@@ -9,10 +9,10 @@ public class PlatformMovement : MonoBehaviour {
 	[SerializeField] private float RestartPos = -64f;
 	[SerializeField] private float ResetPos = 24.2f;
 
-	[SerializeField] private float xPos, yPos,zPos;
+	private float xPos, yPos,zPos;
 
 	// Use this for initialization
-	void Start () {
+	protected virtual void Start () {
 		//platforms = FindObjectsOfType<Platform>();
 		xPos = GetComponent<Transform>().localPosition.x;
 		yPos = GetComponent<Transform>().localPosition.y;

@@ -9,7 +9,7 @@ public class Player : MonoBehaviour {
 	private Animator anim;
 	private Rigidbody body;
 	private bool jump = false;
-	[SerializeField] private float xPos, yPos, zPos;
+	private float xPos, yPos, zPos,xRot,yRot,zRot;
 	private AudioSource playerSnd;
 	
 	// Use this for initialization
@@ -17,9 +17,14 @@ public class Player : MonoBehaviour {
 		anim = GetComponent<Animator>();
 		body = GetComponent<Rigidbody>();
 		playerSnd = GetComponent<AudioSource>();
+		//position
 		xPos = GetComponent<Transform>().localPosition.x;
 		yPos = GetComponent<Transform>().localPosition.y;
 		zPos = 9.087905f;
+		//rotation
+		xRot = 0;
+		yRot =  -73.9f;
+		zRot = 0;
 	}
 	
 	// Update is called once per frame
@@ -60,6 +65,7 @@ void OnCollisionEnter (Collision other)
 		body.useGravity = false;
 		body.isKinematic  = true;
 		transform.localPosition = new Vector3(xPos,yPos,zPos);
+		transform.eulerAngles =  new Vector3(xRot,yRot,zRot);
 		body.detectCollisions = true;
 	}
 }
