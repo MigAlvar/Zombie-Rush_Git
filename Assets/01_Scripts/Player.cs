@@ -9,7 +9,7 @@ public class Player : MonoBehaviour {
 	private Animator anim;
 	private Rigidbody body;
 	private bool jump = false;
-	private float xPos, yPos, zPos;
+	[SerializeField] private float xPos, yPos, zPos;
 	private AudioSource playerSnd;
 	
 	// Use this for initialization
@@ -19,8 +19,7 @@ public class Player : MonoBehaviour {
 		playerSnd = GetComponent<AudioSource>();
 		xPos = GetComponent<Transform>().localPosition.x;
 		yPos = GetComponent<Transform>().localPosition.y;
-		zPos = GetComponent<Transform>().localPosition.z;
-
+		zPos = 9.087905f;
 	}
 	
 	// Update is called once per frame
@@ -29,6 +28,7 @@ public class Player : MonoBehaviour {
 		if (!GameManager.instance.GameOver && GameManager.instance.GameStarted) {
 			if (Input.GetMouseButtonDown (0)) {
 				GameManager.instance.playerStartedGame();
+				body.isKinematic = false;
 				anim.Play ("Jump");
 				playerSnd.PlayOneShot (sfxJump);
 				body.useGravity = true;
@@ -58,6 +58,7 @@ void OnCollisionEnter (Collision other)
 
 	public void Reset(){
 		body.useGravity = false;
+		body.isKinematic  = true;
 		transform.localPosition = new Vector3(xPos,yPos,zPos);
 		body.detectCollisions = true;
 	}

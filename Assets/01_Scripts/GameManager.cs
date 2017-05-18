@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour {
 	private bool gameStarted = false;
 	private Player player;
 	private PlatformMovement[] platforms;
+	private PlatformObject[] objs;
 
 	//Accessors
 	public bool PlayerActive{
@@ -40,8 +41,9 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = GetComponent<Player>();
+		player = GameObject.FindObjectOfType<Player>();
 		platforms = GameObject.FindObjectsOfType<PlatformMovement>();
+		objs = GameObject.FindObjectsOfType<PlatformObject>();
 	}
 	
 	// Update is called once per frame
@@ -55,10 +57,16 @@ public class GameManager : MonoBehaviour {
 		StopCoroutine(EndScreen());
 		Mainmenu.SetActive(true);
 		player.Reset();
-		/*foreach(PlatformMovement plat in platforms){
+		
+		foreach(PlatformMovement plat in platforms){
 			plat.OnReset();
-		}*/
-	}
+		}
+		
+		foreach(PlatformObject obj in objs){
+			obj.OnReset();
+		}
+		}
+	
 
 	public void playerCollided(){
 		gameStarted = false;
