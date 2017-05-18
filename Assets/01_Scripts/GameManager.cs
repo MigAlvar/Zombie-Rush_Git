@@ -105,7 +105,9 @@ public class GameManager : MonoBehaviour {
 	IEnumerator EndScreen(){
 		yield return new WaitForSeconds(2f);
 		music.Stop();
+
 		GameOvermenu.SetActive(true);
+		player.SessionScore();
 	}
 
 }

@@ -9,6 +9,10 @@ public class PlatformObject : PlatformMovement {
 	public Vector3 bottomPosition;
 	public float switchTime;
 
+
+	//[SerializeField] private bool Rotateable = false;
+	//[SerializeField] private float rotSpeed = 2.0f;
+	//private Vector3 rotary;
 	//[SerializeField] private bool moveableObject = false;
 
 	// Use this for initialization
@@ -17,12 +21,16 @@ public class PlatformObject : PlatformMovement {
 	{
 			StartCoroutine (AutonomousMovement (bottomPosition));
 			base.Start();	
-		
+			//rotary = new Vector3 (0,1,0);
 	}
 
 	public override void Update ()
 	{
-		base.Update();
+		base.Update ();
+		/*if (Rotateable) {
+				rotary.y += rotSpeed * Time.deltaTime;
+			transform.eulerAngles = rotary;
+		}*/
 	}
 
 	IEnumerator AutonomousMovement (Vector3 target)
