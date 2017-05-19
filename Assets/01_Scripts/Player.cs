@@ -9,14 +9,14 @@ public class Player : MonoBehaviour {
 	[SerializeField] private AudioClip sfxDeath;
 	[SerializeField] private AudioClip sfxCoinUp;
 
-	private Text[] scoreBoard;
+	public Text scoreBoard;
 
 	private Animator anim;
 	private Rigidbody body;
 	private bool jump = false;
 	private float xPos, yPos, zPos,xRot,yRot,zRot;
 	private AudioSource playerSnd;
-	private int CoinCollect, TotalCoins, bc;
+	private int CoinCollect, TotalCoins;
 	
 	// Use this for initialization
 	void Start ()
@@ -34,17 +34,6 @@ public class Player : MonoBehaviour {
 		xRot = 0;
 		yRot = -73.9f;
 		zRot = 0;
-		//score
-		bc = 0;
-		scoreBoard = GameObject.Find("GameOver").GetComponentsInChildren<Text>();
-		foreach (Text board in scoreBoard) {
-			if (board.name == "Score") {
-				print(bc);
-				return;
-			} else {
-				bc++;
-			}
-		}
 	}
 	
 	// Update is called once per frame
@@ -102,6 +91,6 @@ public class Player : MonoBehaviour {
 	}
 
 	public void SessionScore(){
-		scoreBoard[bc].text= CoinCollect.ToString();
+		scoreBoard.text= CoinCollect.ToString();
 	}
 }

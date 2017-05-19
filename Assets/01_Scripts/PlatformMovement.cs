@@ -11,12 +11,18 @@ public class PlatformMovement : MonoBehaviour {
 
 	private float xPos, yPos,zPos;
 
+	[SerializeField] private bool Rotateable = false;
+	[SerializeField] private float rotSpeed = 2.0f;
+	private float rotary;
+
 	// Use this for initialization
 	protected virtual void Start () {
 		//platforms = FindObjectsOfType<Platform>();
 		xPos = GetComponent<Transform>().localPosition.x;
 		yPos = GetComponent<Transform>().localPosition.y;
 		zPos = GetComponent<Transform>().localPosition.z;
+
+		//rotary = GetComponent<Transform>();
 
 	}
 
@@ -29,6 +35,12 @@ public class PlatformMovement : MonoBehaviour {
 				//print("Sent to back");
 				transform.position = new Vector3 (RestartPos, transform.position.y, transform.position.z);
 			}
+		}
+
+		if (Rotateable) {
+
+				rotary += 1 + (rotSpeed*Time.deltaTime);
+				transform.localRotation = Quaternion.Euler(0,rotary,0);
 		}
 	}
 
