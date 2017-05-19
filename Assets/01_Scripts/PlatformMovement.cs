@@ -11,10 +11,6 @@ public class PlatformMovement : MonoBehaviour {
 
 	private float xPos, yPos,zPos;
 
-	[SerializeField] private bool Rotateable = false;
-	[SerializeField] private float rotSpeed = 2.0f;
-	private float rotary;
-
 	// Use this for initialization
 	protected virtual void Start () {
 		//platforms = FindObjectsOfType<Platform>();
@@ -37,11 +33,7 @@ public class PlatformMovement : MonoBehaviour {
 			}
 		}
 
-		if (Rotateable) {
 
-				rotary += 1 + (rotSpeed*Time.deltaTime);
-				transform.localRotation = Quaternion.Euler(0,rotary,0);
-		}
 	}
 
 	public void OnReset ()
